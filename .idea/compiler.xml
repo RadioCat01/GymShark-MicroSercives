@@ -8,10 +8,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Order" />
-        <module name="Product" />
-        <module name="ConfigServer" />
+        <module name="Payment" />
         <module name="Customer" />
         <module name="discovery" />
+        <module name="Gateway" />
+        <module name="Product" />
+        <module name="ConfigServer" />
+        <module name="Notification" />
       </profile>
     </annotationProcessing>
   </component>
@@ -19,7 +22,10 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ConfigServer" options="-parameters" />
       <module name="Customer" options="-parameters" />
+      <module name="Gateway" options="-parameters" />
+      <module name="Notification" options="-parameters" />
       <module name="Order" options="-parameters" />
+      <module name="Payment" options="-parameters" />
       <module name="Product" options="-parameters" />
       <module name="discovery" options="-parameters" />
     </option>

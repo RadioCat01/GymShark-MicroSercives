@@ -2,6 +2,7 @@ package com.Ecom.Customer.customer;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 
 @AllArgsConstructor
@@ -14,7 +15,8 @@ import lombok.*;
 public class Customer {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private String Id;
     private String firstname;
     private String lastname;

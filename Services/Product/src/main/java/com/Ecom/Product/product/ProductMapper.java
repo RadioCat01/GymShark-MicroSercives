@@ -17,7 +17,16 @@ public class ProductMapper {
     }
 
     public ProductResponse toProductResponse(Product product) {
-        return null;
+        return new ProductResponse(
+                product.getId(),
+                product.getNaame(),
+                product.getDescription(),
+                product.getAvailableQuantity(),
+                product.getPrice(),
+                product.getCategory().getId(),
+                product.getCategory().getNaame(),
+                product.getCategory().getDescription()
+        );
     }
 
 
