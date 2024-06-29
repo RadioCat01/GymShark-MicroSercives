@@ -13,7 +13,6 @@
 ### Configuration Service - 
 Includes necessary confguraion details ( connection details, API keys, endpoint URLs ) of all the microservices for centralized management, dynamic configuration - services can dynamically refresh configurations without restarting...
 
-##
     spring:
       profiles:
           active: native  // set active profile - native profile indicates that the configuration properties are stored locally rather than in a remote Git repository or other external sources
@@ -24,3 +23,46 @@ Includes necessary confguraion details ( connection details, API keys, endpoint 
             server:
                 native:
                    search-locations: classpath:/configurations   // Specifies the location where the configuration files are stored
+    server:
+        port: 8080
+
+This class path contains all the configuration files of each micro-service
+
+    **application.yml** 
+    discovery-service.yml
+    customer-service.yml
+    customer-service.yml
+    product-service.yml
+    payment-service.yml
+    order-service.yml
+    gateway-service.yml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   
