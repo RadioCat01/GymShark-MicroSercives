@@ -10,8 +10,8 @@
         Notification-service       - port 8054
         API Gateway                - port 8055
 
- Configuration Service - includes necessary confguraion details ( connection details, API keys, endpoint URLs ) of all the microservices for centralized management,
-                        dynamic configuration - services can dynamically refresh configurations without restarting...
+### Configuration Service - 
+#### includes necessary confguraion details ( connection details, API keys, endpoint URLs ) of all the microservices for centralized management, dynamic configuration - services can dynamically refresh configurations without restarting...
 
 spring:
   profiles:
