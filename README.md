@@ -11,8 +11,9 @@
         API Gateway                - port 8055
 
 ### Configuration Service - 
-#### includes necessary confguraion details ( connection details, API keys, endpoint URLs ) of all the microservices for centralized management, dynamic configuration - services can dynamically refresh configurations without restarting...
+Includes necessary confguraion details ( connection details, API keys, endpoint URLs ) of all the microservices for centralized management, dynamic configuration - services can dynamically refresh configurations without restarting...
 
+##
 spring:
   profiles:
     active: native  // set active profile - native profile indicates that the configuration properties are stored locally rather than in a remote Git repository or other external sources
