@@ -14,13 +14,13 @@
 Includes necessary confguraion details ( connection details, API keys, endpoint URLs ) of all the microservices for centralized management, dynamic configuration - services can dynamically refresh configurations without restarting...
 
 ##
-spring:
-  profiles:
-    active: native  // set active profile - native profile indicates that the configuration properties are stored locally rather than in a remote Git repository or other external sources
-  application:
-    name: config-server  // set name of the server
-  cloud:
-    config:
-      server:
-        native:
-          search-locations: classpath:/configurations   // Specifies the location where the configuration files are stored
+    spring:
+      profiles:
+          active: native  // set active profile - native profile indicates that the configuration properties are stored locally rather than in a remote Git repository or other external sources
+      application:
+       name: config-server  // set name of the server
+      cloud:
+         config:
+            server:
+                native:
+                   search-locations: classpath:/configurations   // Specifies the location where the configuration files are stored
