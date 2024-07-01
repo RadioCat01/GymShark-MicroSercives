@@ -1,5 +1,6 @@
 package com.Ecom.Customer.customer;
 
+import com.Ecom.Customer.Address.Address;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;

@@ -1,5 +1,6 @@
 package com.Ecom.Customer.customer;
 
+import com.Ecom.Customer.Address.Address;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 

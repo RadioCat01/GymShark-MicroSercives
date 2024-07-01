@@ -1,4 +1,4 @@
-package com.Ecom.Customer.customer;
+package com.Ecom.Customer.Address;
 
 import jakarta.persistence.Embeddable;
 import lombok.*;
