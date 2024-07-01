@@ -24,20 +24,8 @@ public class ProductController {
     @PostMapping("/purchase")
     public ResponseEntity<List<ProductPurchaseResponse>> purchaseProducts(
             @RequestBody List<ProductPurchaseRequest> requests
-    ){
+    ) {
         return ResponseEntity.ok(service.purchaseProducts(requests));
-    }
-
-    @GetMapping("/{product-id}")
-    public ResponseEntity<ProductResponse> findById(
-            @PathVariable("product-id") Integer id
-    ){
-        return ResponseEntity.ok(service.findById(id));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<ProductResponse>> findAll(){
-        return ResponseEntity.ok(service.findAll());
     }
 
 }

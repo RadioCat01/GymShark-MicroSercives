@@ -9,6 +9,10 @@ spring:
           uri: lb:http://CUSTOMER-SERVICE
           predicates:
             - Path=/api/v1/customers/**
+        - id: customer-service
+          uri: lb:http://CUSTOMER-SERVICE
+          predicates:
+            - Path=/api/v1/createCustomer/**
         - id: order-service
           uri: lb:http://ORDER-SERVICE
           predicates:
@@ -17,6 +21,10 @@ spring:
           uri: lb:http://CUSTOMER-SERVICE
           predicates:
             - Path=/api/v1/order-lines/**
+        - id: product-service
+          uri: lb:http://PRODUCT-SERVICE
+          predicates:
+            - Path=/api/v1/viewProducts/**
         - id: product-service
           uri: lb:http://PRODUCT-SERVICE
           predicates:

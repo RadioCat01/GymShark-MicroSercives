@@ -21,9 +21,6 @@ public class OrderController {
         return ResponseEntity.ok(service.createOrder(request));
     }
 
-
-
-
     @GetMapping
     public ResponseEntity<List<OrderResponse>> findAll(){
         return ResponseEntity.ok(service.findAll());
