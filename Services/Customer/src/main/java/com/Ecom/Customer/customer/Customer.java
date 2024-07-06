@@ -1,6 +1,5 @@
 package com.Ecom.Customer.customer;
 
-import com.Ecom.Customer.Address.Address;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
@@ -16,9 +15,11 @@ import org.hibernate.annotations.GenericGenerator;
 public class Customer {
 
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    private String Id;
+    @GeneratedValue
+    private Integer userId;
+
+    @Column(nullable = false, unique = true)
+    private String id;
     private String firstname;
     private String lastname;
     private String email;

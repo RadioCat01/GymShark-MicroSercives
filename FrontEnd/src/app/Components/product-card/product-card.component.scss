@@ -1,0 +1,110 @@
+.product-grid{
+    background-color: #fff;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+    width: 320px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.product-grid .product-image{ position: relative; }
+.product-grid .product-image a.image{ display: block; }
+.product-grid .product-image img{
+    width: 100%;
+    height: auto;
+}
+
+.product-image .pic-2{
+    width: 100%;
+    height: 100%;
+    filter: blur(10px);
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.5s ease 0s;
+}
+.product-grid .product-like-icon{
+    color: #999;
+    font-size: 16px;
+    position: absolute;
+    right: 13px;
+    top: 10px;
+    transition: all 0.3s ease 0s;
+}
+.product-grid .product-like-icon:hover{ text-shadow: 2px 2px 0 rgba(0,0,0,0.5); }
+.product-grid .product-links{
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    opacity: 0;
+    transform: translateX(-50%) scale(0);
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+.product-grid:hover .product-links{
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+.product-grid .product-links li{ display: inline-block; }
+.product-grid .product-links li a{
+    color: #fff;
+    background: #333;
+    font-size: 16px;
+    line-height: 38px;
+    width: 120px;
+    height: 40px;
+    display: block;
+    transition: all 0.3s ease 0s;
+}
+
+.product-grid .product-links li a:hover{
+    color: #fff;
+    background: #909090;
+}
+.product-grid .product-content{
+    background-color: #fff;
+    padding: 10px 10px 10px;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease 0s;
+}
+.product-grid:hover .product-content{ transform: translateY(47px); }
+.product-content {
+    line-height: 1px;
+    h5{
+        font-size: 12px;
+        font-weight: 600;
+        color:#999;
+    }
+    p{
+        font-size: 12px;
+        font-weight: 600;
+        color:#999;
+        margin-top: -6px;
+        margin-bottom: 20px;
+    }
+}
+.product-grid .title{
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 -18px;
+}
+
+.product-grid .price{
+    margin-top: 25px;
+    color: #e43636;
+    font-size: 14px;
+    font-weight: 600;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    span{
+        text-decoration: line-through;
+        color: #909090;
+    }
+
+}
+@media screen and (max-width:990px){
+    .product-grid{ margin: 0 0 30px; }
+}

@@ -28,12 +28,11 @@ export class KeycloakService {
 
 
   async init(){
-    console.log('Authenticating user...');
     const authenticated = await this.keycloak.init({
 
         onLoad: 'login-required',
-
-        });
+        }
+      );
 
         if(authenticated){
           this._profile = (await this.keycloak.loadUserProfile()) as UserProfile;
@@ -46,7 +45,7 @@ export class KeycloakService {
     }
 
     logout():Promise<void>{
-      return this.keycloak?.logout({redirectUri: 'http:localhost:4200'});
+      return this.keycloak?.logout({redirectUri: 'http:localhost:4200/landing'});
     }
     
 

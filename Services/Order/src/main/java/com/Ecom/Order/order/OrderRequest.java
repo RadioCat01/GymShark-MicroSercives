@@ -19,12 +19,14 @@ public record OrderRequest(
         @NotNull(message = "Select one")
         PaymentMethod paymentMethod,
 
-        @NotBlank(message = "blank")
-        @NotEmpty(message = "empty")
-        @NotNull(message = "Id invalid")
-        String customerId,
-
         @NotEmpty(message = "Select a product")
-        List<PurchaseRequest> products
+        List<PurchaseRequest> products,
+
+        @NotEmpty(message = "Street required")
+        String street,
+        @NotEmpty(message = "House Number required")
+        String houseNumber,
+        @NotEmpty(message = "Zip code required")
+        String zipCode
 ) {
 }

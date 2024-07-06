@@ -9,17 +9,20 @@ import { RequestBuilder } from '../../request-builder';
 import { ProductRequest } from '../../models/product-request';
 
 export interface CreateProduct$Params {
-      body: ProductRequest
+      body?: {
+'request': ProductRequest;
+'image': Blob;
+}
 }
 
-export function createProduct(http: HttpClient, rootUrl: string, params: CreateProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+export function createProduct(http: HttpClient, rootUrl: string, params?: CreateProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
   const rb = new RequestBuilder(rootUrl, createProduct.PATH, 'post');
   if (params) {
-    rb.body(params.body, 'application/json');
+    rb.body(params.body, 'multipart/form-data');
   }
 
   return http.request(
-    rb.build({ responseType: 'json', accept: '*/*', context })
+    rb.build({ responseType: 'blob', accept: '*/*', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {

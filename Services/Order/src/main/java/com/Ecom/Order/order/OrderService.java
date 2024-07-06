@@ -1,7 +1,9 @@
 package com.Ecom.Order.order;
 
+import com.Ecom.Order.customer.Address;
 import com.Ecom.Order.customer.CustomerClient;
-import com.Ecom.Order.exception.BusinesException;
+import com.Ecom.Order.customer.CustomerRequest;
+import com.Ecom.Order.customer.CustomerResponse;
 import com.Ecom.Order.kafka.OrderConfirmation;
 import com.Ecom.Order.kafka.OrderProducer;
 import com.Ecom.Order.orderline.OrderLineRequest;
@@ -9,9 +11,11 @@ import com.Ecom.Order.orderline.OrderLineService;
 import com.Ecom.Order.payment.PaymentClient;
 import com.Ecom.Order.payment.PaymentRequest;
 import com.Ecom.Order.product.ProductClient;
+import com.Ecom.Order.product.ProductClientFeing;
 import com.Ecom.Order.product.PurchaseRequest;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.apache.kafka.common.security.oauthbearer.internals.secured.ValidatorAccessTokenValidator;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,18 +28,28 @@ public class OrderService {
     private final OrderMapper mapper;
     private final OrderRepository repo;
     private final CustomerClient customerClient;
-    private final ProductClient productClient;
+    private final ProductClientFeing productClientFeing;
     private final OrderLineService orderLineService;
     private final OrderProducer orderProducer;
     private final PaymentClient paymentClient;
 
 
-    public Integer createOrder(OrderRequest request) {
+    public Integer createOrder(OrderRequest request, CustomerResponse currentCustomer) {
 
-        var customer =this.customerClient.findCustomerById(request.customerId())
-                .orElseThrow(()-> new BusinesException("Cannot create order : invalid customer id"));
+        var Address = new Address(request.street(), request.houseNumber(), request.zipCode());
 
-        var purchasedProduct = this.productClient.purchaseProducts(request.products());
+        var CustomerRequest = new CustomerRequest(
+                currentCustomer.id(),
+                currentCustomer.firstname(),
+                currentCustomer.lastname(),
+                currentCustomer.email(),
+                Address
+        );
+
+        var savedCustomerID = customerClient.createCustomer(CustomerRequest);
+
+
+        var purchasedProduct = this.productClientFeing.purchaseProducts(request.products());
 
         var order = this.repo.save(mapper.toOrder(request));
 
@@ -56,7 +70,7 @@ public class OrderService {
                 request.paymentMethod(),
                 order.getId(),
                 order.getReference(),
-                customer
+                currentCustomer
         );
 
         paymentClient.requestOrderPayment(paymentRequest);
@@ -66,7 +80,7 @@ public class OrderService {
                         request.reference(),
                         request.amount(),
                         request.paymentMethod(),
-                        customer,
+                        currentCustomer,
                         purchasedProduct
                 )
         );

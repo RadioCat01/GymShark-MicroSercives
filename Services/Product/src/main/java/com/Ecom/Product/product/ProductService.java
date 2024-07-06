@@ -4,7 +4,12 @@ import com.Ecom.Product.exception.productPurchaseException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -16,10 +21,19 @@ public class ProductService {
 
     private final ProductRepository repository;
     private final ProductMapper mapper;
+    private final String uploadDir = "uploads/";
 
-    public Integer createProduct(ProductRequest request) {
-        var product = mapper.toProduct(request);
-        return  repository.save(product).getId();
+    public Integer createProduct(ProductRequest request, MultipartFile image) throws IOException {
+
+        if (!image.isEmpty()) {
+            String fileName = image.getOriginalFilename();
+            Path filePath = Paths.get(uploadDir, fileName);
+            Files.createDirectories(filePath.getParent());
+            Files.write(filePath, image.getBytes());
+            var product = mapper.toProduct(request, filePath.toString());
+            return  repository.save(product).getId();
+        }
+        return null;
     }
 
     public List<ProductPurchaseResponse> purchaseProducts(List<ProductPurchaseRequest> requests) {
@@ -60,4 +74,16 @@ public class ProductService {
     public List<ProductResponse> findAll() {
         return repository.findAll().stream().map(mapper::toProductResponse).collect(Collectors.toList());
     }
+
+    public List<ProductResponse> findAllMen() {
+        return repository.findAllMen().stream().map(mapper::toProductResponse).collect(Collectors.toList());
+    }
+    public List<ProductResponse> findAllWomen() {
+        return repository.findAllWomen().stream().map(mapper::toProductResponse).collect(Collectors.toList());
+    }
+
+    public List<ProductResponse> findAllUnisex() {
+        return repository.findAllUnisex().stream().map(mapper::toProductResponse).collect(Collectors.toList());
+    }
+
 }

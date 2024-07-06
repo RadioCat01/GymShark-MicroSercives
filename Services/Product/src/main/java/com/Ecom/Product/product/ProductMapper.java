@@ -1,18 +1,23 @@
 package com.Ecom.Product.product;
 
-import com.Ecom.Product.category.Category;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Base64;
 
 @Component
 public class ProductMapper {
-    public Product toProduct(ProductRequest request) {
+    public Product toProduct(ProductRequest request , String path) {
         return Product.builder()
-                .id(request.id())
                 .naame(request.naame())
                 .description(request.description())
                 .availableQuantity(request.availableQuantity())
                 .price(request.price())
-                .category(Category.builder().id(request.categoryId()).build())
+                .imagePath(path)
+                .category(request.category())
                 .build();
     }
 
@@ -23,9 +28,8 @@ public class ProductMapper {
                 product.getDescription(),
                 product.getAvailableQuantity(),
                 product.getPrice(),
-                product.getCategory().getId(),
-                product.getCategory().getNaame(),
-                product.getCategory().getDescription()
+                encodeImageToBase64(product.getImagePath()),
+                product.getCategory()
         );
     }
 
@@ -39,4 +43,15 @@ public class ProductMapper {
                 quantity
                 );
     }
+
+    private String encodeImageToBase64(String imagePath) {
+        try {
+            Path filePath = Paths.get(imagePath);
+            byte[] imageBytes = Files.readAllBytes(filePath);
+            return Base64.getEncoder().encodeToString(imageBytes);
+        } catch (IOException e) {
+            throw new RuntimeException("Could not read the file!", e);
+        }
+    }
+
 }

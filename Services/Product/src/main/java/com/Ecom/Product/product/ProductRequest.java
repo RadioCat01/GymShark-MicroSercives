@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public record ProductRequest(
-         Integer id,
 
          @NotNull(message = "ProductName empty")
          String naame,
@@ -16,7 +15,8 @@ public record ProductRequest(
          double availableQuantity,
          @NotNull(message = "Product price empty")
          BigDecimal price,
-         @NotNull(message = "set the id")
-         Integer categoryId
+         @NotNull(message = "Category required")
+         String category
+
 ) {
 }

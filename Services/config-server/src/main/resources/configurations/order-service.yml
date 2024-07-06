@@ -22,6 +22,7 @@ server:
 
 application:
   config:
-    customer-url: http://localhost:8055/api/v1/customers
-    product-url: http://localhost:8055/api/v1/products
-    payment-url: http://localhost:8055/api/v1/payments
+    customer-url: http://localhost:8050/api/v1/customers
+    product-url: http://localhost:8051/api/v1/products
+    payment-url: http://localhost:8053/api/v1/payments
+    gateway-url: http://localhost:8055/api/v1/gateway

@@ -1,0 +1,20 @@
+
+<div class="col-md-3 col-sm-6">
+        <div class="product-grid">
+            <div class="product-image">
+                <a href="#" class="image">
+                    <img class="pic-1" [src]="getImageUrl(product.imagePath)">
+                </a>
+                <a href="" class="product-like-icon"><i class="far fa-heart"></i></a>
+                <ul class="product-links">
+                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                </ul>
+            </div>
+            <div class="product-content">
+                <h3 class="title">{{product.naame}}</h3>
+                <h5>{{product.category}}</h5>
+                <p>{{product.description}}</p>
+                <div class="price">US${{product.price}} <span>US${{product.price + 10}}</span></div>
+            </div>
+        </div>
+ </div>

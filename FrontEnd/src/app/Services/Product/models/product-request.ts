@@ -2,9 +2,8 @@
 /* eslint-disable */
 export interface ProductRequest {
   availableQuantity: number;
-  categoryId: number;
+  category: string;
   description: string;
-  id?: number;
   naame: string;
   price: number;
 }

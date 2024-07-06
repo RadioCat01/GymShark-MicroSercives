@@ -18,13 +18,22 @@
         "operationId": "createProduct",
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/ProductRequest"
+                "required": ["image", "request"],
+                "type": "object",
+                "properties": {
+                  "request": {
+                    "$ref": "#/components/schemas/ProductRequest"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {
@@ -124,6 +133,69 @@
           }
         }
       }
+    },
+    "/api/v1/viewProducts/Women": {
+      "get": {
+        "tags": ["productview-controller"],
+        "operationId": "findWomen",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/viewProducts/Unisex": {
+      "get": {
+        "tags": ["productview-controller"],
+        "operationId": "findUnisex",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/viewProducts/Men": {
+      "get": {
+        "tags": ["productview-controller"],
+        "operationId": "findMen",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProductResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -131,17 +203,13 @@
       "ProductRequest": {
         "required": [
           "availableQuantity",
-          "categoryId",
+          "category",
           "description",
           "naame",
           "price"
         ],
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
           "naame": {
             "type": "string"
           },
@@ -155,9 +223,8 @@
           "price": {
             "type": "number"
           },
-          "categoryId": {
-            "type": "integer",
-            "format": "int32"
+          "category": {
+            "type": "string"
           }
         }
       },
@@ -217,14 +284,10 @@
           "price": {
             "type": "number"
           },
-          "categoryId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "categoryName": {
+          "imagePath": {
             "type": "string"
           },
-          "categoryDescription": {
+          "category": {
             "type": "string"
           }
         }

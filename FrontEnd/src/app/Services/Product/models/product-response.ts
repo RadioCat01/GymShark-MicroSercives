@@ -2,11 +2,10 @@
 /* eslint-disable */
 export interface ProductResponse {
   availableQuantity?: number;
-  categoryDescription?: string;
-  categoryId?: number;
-  categoryName?: string;
+  category?: string;
   description?: string;
   id?: number;
+  imagePath: string;
   naame?: string;
-  price?: number;
+  price: number;
 }

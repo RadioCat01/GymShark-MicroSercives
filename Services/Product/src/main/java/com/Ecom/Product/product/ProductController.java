@@ -2,9 +2,12 @@ package com.Ecom.Product.product;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -14,11 +17,13 @@ public class ProductController {
 
     private final ProductService service;
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Integer> createProduct(
-            @RequestBody @Valid ProductRequest request
-    ){
-        return ResponseEntity.ok(service.createProduct(request));
+            @RequestPart("request") @Valid ProductRequest request,
+            @RequestPart("image") MultipartFile image
+
+    ) throws IOException {
+        return ResponseEntity.ok(service.createProduct(request, image));
     }
 
     @PostMapping("/purchase")

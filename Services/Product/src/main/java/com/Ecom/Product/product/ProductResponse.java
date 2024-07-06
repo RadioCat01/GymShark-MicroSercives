@@ -11,9 +11,7 @@ public record ProductResponse(
         String description,
         double availableQuantity,
         BigDecimal price,
-        Integer categoryId,
-        String categoryName,
-        String categoryDescription
-
+        String imagePath,
+        String category
 ) {
 }

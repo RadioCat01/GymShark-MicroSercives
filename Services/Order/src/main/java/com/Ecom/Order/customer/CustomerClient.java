@@ -1,12 +1,9 @@
 package com.Ecom.Order.customer;
 
-
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import javax.swing.text.html.Option;
-import java.util.Optional;
 
 @FeignClient(
         name = "customer-service",
@@ -14,7 +11,7 @@ import java.util.Optional;
 )
 public interface CustomerClient {
 
-    @GetMapping("/{customer-id}")
-    Optional<CustomerResponse> findCustomerById(@PathVariable("customer-id") String customerId);
+    @PostMapping
+    String createCustomer( @RequestBody CustomerRequest customer );
 
 }

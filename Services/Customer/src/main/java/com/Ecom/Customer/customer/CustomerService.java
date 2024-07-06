@@ -7,6 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,8 +18,15 @@ public class CustomerService {
     private final CustomerMapper mapper;
 
     public String createCustomer(CustomerRequest request) {
-        var customer = repo.save(mapper.toCustomer(request));
-        return customer.getId();
+
+        var Cus = repo.findByCustomId(request.Id());
+
+        if(Cus.isEmpty()) {
+            var customer = repo.save(mapper.toCustomer(request));
+            return customer.getId();
+        }
+        return null;
+
     }
 
     public void updateCustomer(CustomerRequest request) {

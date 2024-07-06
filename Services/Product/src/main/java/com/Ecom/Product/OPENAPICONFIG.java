@@ -13,8 +13,8 @@ public class OPENAPICONFIG {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("My API")
+                        .title("Product-Api")
                         .version("1.0")
-                        .description("This is a sample Spring Boot RESTful service using OpenAPI 3."));
+                        .description("This is a sample Spring Boot REST service using OpenAPI 3."));
     }
 }

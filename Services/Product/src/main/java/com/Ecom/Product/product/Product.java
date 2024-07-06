@@ -1,6 +1,5 @@
 package com.Ecom.Product.product;
 
-import com.Ecom.Product.category.Category;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,8 +21,7 @@ public class Product {
     private double availableQuantity;
     private BigDecimal price;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    private String imagePath;
+    private String category;
 
 }
