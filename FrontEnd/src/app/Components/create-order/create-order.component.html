@@ -1,0 +1,35 @@
+
+  <div class="cart">
+  <form (ngSubmit)="onSubmit()">
+    <label>
+      House Number:
+      <input [(ngModel)]="orderRequest.houseNumber" name="houseNumber" required>
+    </label>
+    <label>
+      Street:
+      <input [(ngModel)]="orderRequest.street" name="street" required>
+    </label>
+    <label>
+      Zip Code:
+      <input [(ngModel)]="orderRequest.zipCode" name="zipCode" required>
+    </label>
+    <label>
+      Payment Method:
+      <select [(ngModel)]="orderRequest.paymentMethod" name="paymentMethod">
+        <option value="PAYPAL">Paypal</option>
+        <option value="CREDIT_CARD">Credit Card</option>
+      </select>
+    </label>
+    <div *ngIf="cartItems.length > 0">
+      <div *ngFor="let item of cartItems">
+        <div>
+          <h3>{{ item.naame }} - {{ item.price | currency }}</h3>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h3>Total Price:<span> {{ orderRequest.amount | currency }}</span></h3>
+    </div>
+    <button type="submit">Proceed</button>
+  </form>
+  </div>

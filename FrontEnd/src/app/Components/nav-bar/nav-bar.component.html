@@ -1,1 +1,12 @@
-<p>nav-bar works!</p>
+<div class="nav">
+<div class="logo"></div>
+<div class="links">
+  <a routerLink="/landing" fragment="women">WOMEN</a>
+  <a routerLink="/landing" fragment="men">MEN</a>
+  <a routerLink="/landing" fragment="unisex">UNISEX</a>
+</div>
+<div class="buttons">
+<button (click)="openDialog()"  mat-icon-button [matBadge]="cartItemCount > 0 ? cartItemCount : null"  class="custom-cart-button"> <i class="fa fa-shopping-cart cart"></i></button>
+<button class="logout" (click)="logout()">Log Out</button>
+</div>
+</div>

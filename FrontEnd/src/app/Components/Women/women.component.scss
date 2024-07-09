@@ -1,6 +1,7 @@
 .page{
-    height: 175vh;
+    height: 76vh;
     width: 100%;
+    padding-top: 80px;
   }
   .products-container {
       padding-top: 40px;
@@ -48,30 +49,3 @@
       margin-left: 20px;
       margin-top: 20px;
     }
-  
-    .category-band {
-      margin-top: 20px;
-      background: linear-gradient(to top, #201f1d, #2c1e0e); 
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
-      font-size: 1.5em;
-      font-weight: bold;
-      margin-bottom: 16px; 
-      width: 100%;
-      height: 120px;
-  
-      font-size: 35px;
-      font-weight: 500;
-    }
-    
-.section{
-  background-image: url('/bg4.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  width: 100%;
-  height: 800px;
-}

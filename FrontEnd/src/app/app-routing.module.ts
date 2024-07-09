@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { authGuard } from './Services/Guard/auth.guard';
 import { LandingComponent } from './Pages/landing/landing.component';
-import { CreateProductComponent } from './Pages/create-product/create-product.component';
-import { FooterComponent } from './Components/footer/footer.component';
+import { CreateProductComponent } from './Components/create-product/create-product.component';
+import { CreateOrderComponent } from './Components/create-order/create-order.component';
 
 
 const routes: Routes = [
@@ -20,15 +20,15 @@ const routes: Routes = [
     canActivate : [authGuard]
   },
   {
-    path: 'footer',
-    component : FooterComponent,
-    
+    path: 'createOrder',
+    component : CreateOrderComponent,
+    canActivate: [authGuard]
   }
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

@@ -14,13 +14,16 @@ import {MatCardModule} from '@angular/material/card';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
-import { CreateProductComponent } from './Pages/create-product/create-product.component';
+import { CreateProductComponent } from './Components/create-product/create-product.component';
 import { MenComponent } from './Components/Men/men.component';
 import { UniSexComponent } from './Components/uni-sex/uni-sex.component';
 import { WomenComponent } from './Components/Women/women.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { NavBarComponent } from './Components/nav-bar/nav-bar.component';
-
+import { CreateOrderComponent } from './Components/create-order/create-order.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatBadgeModule } from '@angular/material/badge';
+import {MatIconModule} from '@angular/material/icon'; 
 
 export function kcFactory(kcService: KeycloakService){
   return () =>kcService.init();
@@ -37,7 +40,8 @@ export function kcFactory(kcService: KeycloakService){
     UniSexComponent,
     WomenComponent,
     FooterComponent,
-    NavBarComponent
+    NavBarComponent,
+    CreateOrderComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,10 @@ export function kcFactory(kcService: KeycloakService){
     MatPaginatorModule,
     BrowserAnimationsModule,
     MatTableModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatBadgeModule,
+    MatIconModule
   ],
   providers: [
     HttpClient,

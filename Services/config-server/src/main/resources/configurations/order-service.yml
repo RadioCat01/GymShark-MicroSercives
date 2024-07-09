@@ -24,5 +24,5 @@ application:
   config:
     customer-url: http://localhost:8050/api/v1/customers
     product-url: http://localhost:8051/api/v1/products
-    payment-url: http://localhost:8053/api/v1/payments
+    payment-url: http://localhost:8053/api/v1/payments/payment/create
     gateway-url: http://localhost:8055/api/v1/gateway

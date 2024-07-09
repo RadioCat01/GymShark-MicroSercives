@@ -1,5 +1,6 @@
 package com.Ecom.Order.payment;
 
+import feign.Response;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 )
 public interface PaymentClient {
 
+
     @PostMapping
-    Integer requestOrderPayment(@RequestBody PaymentRequest request);
+    Response requestOrderPayment(@RequestBody PaymentRequest request);
 
 }

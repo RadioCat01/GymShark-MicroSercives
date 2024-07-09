@@ -20,13 +20,15 @@ public class OrderController {
     private final OrderService service;
 
     @PostMapping
-    public ResponseEntity<Integer> createOrder(
+    public ResponseEntity<String> createOrder(
             @RequestBody @Valid OrderRequest request,
             @RequestHeader("User-ID")String UserId,
             @RequestHeader("First-Name")String firstName,
             @RequestHeader("Last-Name")String lastName,
             @RequestHeader("Email")String Email
             ) {
+
+        System.out.println(request.products());
 
         CustomerResponse currentCustomer = new CustomerResponse(
                 UserId,
@@ -35,7 +37,8 @@ public class OrderController {
                 Email
                 );
 
-        return ResponseEntity.ok(service.createOrder(request , currentCustomer));
+        String url = service.createOrder(request , currentCustomer);
+        return ResponseEntity.ok(url);
     }
 
     @GetMapping

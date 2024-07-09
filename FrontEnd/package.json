@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "api-gen-product": "ng-openapi-gen --input ./src/app/OpenAPI_Product.json --output ./src/app/Services/Product"
+    "api-gen-product": "ng-openapi-gen --input ./src/app/OpenAPI_Product.json --output ./src/app/Services/Product",
+    "api-gen-Order": "ng-openapi-gen --input ./src/app/OpenAPI_Order.json --output ./src/app/Services/Order"
   },
   "private": true,
   "dependencies": {

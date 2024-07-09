@@ -10,12 +10,11 @@ import com.Ecom.Order.orderline.OrderLineRequest;
 import com.Ecom.Order.orderline.OrderLineService;
 import com.Ecom.Order.payment.PaymentClient;
 import com.Ecom.Order.payment.PaymentRequest;
-import com.Ecom.Order.product.ProductClient;
 import com.Ecom.Order.product.ProductClientFeing;
 import com.Ecom.Order.product.PurchaseRequest;
+import feign.Response;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.apache.kafka.common.security.oauthbearer.internals.secured.ValidatorAccessTokenValidator;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +33,7 @@ public class OrderService {
     private final PaymentClient paymentClient;
 
 
-    public Integer createOrder(OrderRequest request, CustomerResponse currentCustomer) {
+    public String createOrder(OrderRequest request, CustomerResponse currentCustomer) {
 
         var Address = new Address(request.street(), request.houseNumber(), request.zipCode());
 
@@ -73,7 +72,8 @@ public class OrderService {
                 currentCustomer
         );
 
-        paymentClient.requestOrderPayment(paymentRequest);
+        Response response = paymentClient.requestOrderPayment(paymentRequest);
+        String redirectUrl = response.headers().get("Location").iterator().next();
 
         orderProducer.sendOrderConfirmation(
                 new OrderConfirmation(
@@ -85,7 +85,7 @@ public class OrderService {
                 )
         );
 
-        return order.getId();
+        return redirectUrl;
     }
 
     public List<OrderResponse> findAll() {

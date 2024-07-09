@@ -11,6 +11,18 @@
     width: 100%;
     height: auto;
 }
+.product-links{
+
+    button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 140px;
+        height: 40px;
+        background-color: #b9b9b9;
+        border-radius: 20px;
+    }
+}
 
 .product-image .pic-2{
     width: 100%;
@@ -71,7 +83,7 @@
     z-index: 1;
     transition: all 0.3s ease 0s;
 }
-.product-grid:hover .product-content{ transform: translateY(47px); }
+.product-grid:hover .product-content{ transform: translateY(50px); }
 .product-content {
     line-height: 1px;
     h5{

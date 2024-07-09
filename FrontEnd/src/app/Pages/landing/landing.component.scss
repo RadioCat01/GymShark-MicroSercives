@@ -1,0 +1,51 @@
+.category-band{
+    background: linear-gradient(to top, #201f1d, #2c1e0e); 
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    font-size: 1.5em;
+    font-weight: bold;
+    width: 100%;
+    height: 120px;
+    font-size: 35px;
+    font-weight: 500;
+    margin-bottom: -80px;
+}
+
+.section1{
+    background-image: url('/bg4.jpg');
+    width: 100%;
+    height: 900px;
+    background-size: cover;
+}
+.section2{
+    margin-top: 80px;
+    background-image: url('/bg1.jpg');
+    width: 100%;
+    height: 900px;
+    background-size: cover;
+    margin-bottom: -80px;
+
+}
+.section3{
+    margin-top: 80px;
+
+    background-image: url('/bg2.jpg');
+    width: 100%;
+    height: 900px;
+    background-size: cover;
+    margin-bottom: -80px;
+
+}
+.section4{
+    margin-top: 80px;
+
+    background-image: url('/bg5.jpg');
+    width: 100%;
+    height: 900px;
+    background-size: cover;
+    margin-bottom: -80px;
+
+}
