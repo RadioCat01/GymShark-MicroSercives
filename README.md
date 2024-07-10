@@ -152,7 +152,8 @@ No additional classes, main class Annotated tith @EnableConfig server
             name: gateway-service
 
 #### Java code
-- security: contains Security filter chain xxx Integrated Keycloak at gateway 
+- security: contains Security filter chain xxx Integrated Keycloak at gateway
+- Here have implemented a filter to add user id, first name, last name, email in to the passing request header - that laterly persisted on customer database along with other data ( adress, zip code, city )
 ##  
     Dependencies
          Config client
