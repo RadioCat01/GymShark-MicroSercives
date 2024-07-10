@@ -1,7 +1,6 @@
 # Micro service architecture of GymShark E-commerce website
 
-![1](https://github.com/RadioCat01/Ecom-Micro/assets/159749345/ae42f6af-fa13-4bca-85c5-ba91e616c737)
-
+![1](https://github.com/RadioCat01/Ecom-Micro/assets/159749345/12a96333-36ea-467f-a17d-a84d7aaccc06)
 
 ## Micro services -
         Configuration-service      - port 8080
