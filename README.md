@@ -103,6 +103,64 @@ No additional classes, main class Annotated tith @EnableConfig server
          eureka server
 
 ---
+### Gateway-service
+#### Configurations
+#### gateway-service.yml in configuration-service
+
+    spring:
+       cloud:
+         gateway:
+           discovery:
+              locator:
+                 enabled: true  // Enables the discovery locator, which allows the gateway to discover routes from a service registry like Eureka
+          
+           routes:                                //Defines a list of routes for the gateway to forward requests to specific microservices based on the request path.
+               - id: customer-service             // A unique identifier for the route.
+                 uri: lb:http://CUSTOMER-SERVICE  // The URI of the target microservice. The lb: prefix indicates that the URI is a load-balanced address.
+                 predicates:                      // A list of conditions that incoming requests must match to be routed to the specified URI. In this case, it uses the Path predicate to match the request path
+                    - Path=/api/v1/customers/**
+               - id: order-service
+                 uri: lb:http://ORDER-SERVICE
+                 predicates:
+                    - Path=/api/v1/orders/**
+               - id: order-line-service
+                 uri: lb:http://CUSTOMER-SERVICE
+                 predicates:
+                    - Path=/api/v1/order-lines/**
+               - id: product-service
+                 uri: lb:http://PRODUCT-SERVICE
+                 predicates:
+                    - Path=/api/v1/products/**
+               - id: payment-service
+                 uri: lb:http://PAYMENT-SERVICE
+                 predicates:
+                    - Path=/api/v1/payments/**
+    server:
+       port: 8055
+
+#### application.yml in gateway-service
+
+    spring:
+       security:
+           oauth2:
+               resourceserver:
+                 jwt:
+                    issuer-uri: "http://localhost:9098/realms/micro-service"   // keycloak service up by docker
+        config:
+            import: optional:configserver:http://localhost:8080
+        application:
+            name: gateway-service
+
+#### Java code
+- security: contains Security filter chain xxx Integrated Keycloak at gateway 
+##  
+    Dependencies
+         Config client
+         GateWay
+         Eureca discovery client
+         Zipkin
+
+---
 
 ### Customer-service
 #### Configurations
@@ -345,62 +403,7 @@ Entities, data models, controller, services, repositories, gloable exception han
 
 
 ---
-### Gateway-service
-#### Configurations
-#### gateway-service.yml in configuration-service
 
-    spring:
-       cloud:
-         gateway:
-           discovery:
-              locator:
-                 enabled: true  // Enables the discovery locator, which allows the gateway to discover routes from a service registry like Eureka
-          
-           routes:                                //Defines a list of routes for the gateway to forward requests to specific microservices based on the request path.
-               - id: customer-service             // A unique identifier for the route.
-                 uri: lb:http://CUSTOMER-SERVICE  // The URI of the target microservice. The lb: prefix indicates that the URI is a load-balanced address.
-                 predicates:                      // A list of conditions that incoming requests must match to be routed to the specified URI. In this case, it uses the Path predicate to match the request path
-                    - Path=/api/v1/customers/**
-               - id: order-service
-                 uri: lb:http://ORDER-SERVICE
-                 predicates:
-                    - Path=/api/v1/orders/**
-               - id: order-line-service
-                 uri: lb:http://CUSTOMER-SERVICE
-                 predicates:
-                    - Path=/api/v1/order-lines/**
-               - id: product-service
-                 uri: lb:http://PRODUCT-SERVICE
-                 predicates:
-                    - Path=/api/v1/products/**
-               - id: payment-service
-                 uri: lb:http://PAYMENT-SERVICE
-                 predicates:
-                    - Path=/api/v1/payments/**
-    server:
-       port: 8055
-
-#### application.yml in gateway-service
-
-    spring:
-       security:
-           oauth2:
-               resourceserver:
-                 jwt:
-                    issuer-uri: "http://localhost:9098/realms/micro-service"   // keycloak service up by docker
-        config:
-            import: optional:configserver:http://localhost:8080
-        application:
-            name: gateway-service
-
-#### Java code
-- security: contains Security filter chain xxx Integrated Keycloak at gateway 
-##  
-    Dependencies
-         Config client
-         GateWay
-         Eureca discovery client
-         Zipkin
 
 
 
