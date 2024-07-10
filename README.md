@@ -1,4 +1,4 @@
-# Micro service architecture of Computer Hardware E-commerce website
+# Micro service architecture of GymShark E-commerce website
 
 ## Micro services -
         Configuration-service      - port 8080
@@ -194,6 +194,10 @@ Entities, data models, controller, services, repositories, gloable exception han
             value-serializer: org.springframework.kafka.support.serializer.JsonSerializer  //Sets the value serializer for the Kafka producer to JsonSerializer, which allows for serializing Java objects to JSON.
             properties:
                 spring.json.type.mapping: paymentConfirmation:com.Ecom.Payment.notification.PaymentNotificationRequest  // Maps the JSON type orderConfirmation to the Java class com.Ecom.Order.kafka.OrderConfirmation.
+    paypal:
+      client-id: AbjzUpp06dy-_V9FgZnZUqVKQdwqKNkVI6satiVDqMgbiHVVFo0N2gw6NI9xtWNvhwRf0r5QGfJrwO8c
+      client-secret: EAsRr46qOtOy9hgAI8fOJ2kyKhzsgvU3fqXstSHUuorAgkGgCKWouTx4oyE5Czh9hxodzKf4LPma_CfL      // Paypal Integration
+      mode: sandbox  # for testing set 'live' for actual deployment
 
 #### Java code
 - Payment
@@ -388,7 +392,7 @@ Entities, data models, controller, services, repositories, gloable exception han
             name: gateway-service
 
 #### Java code
-- security: contains Security filter chain
+- security: contains Security filter chain xxx Integrated Keycloak at gateway 
 ##  
     Dependencies
          Config client
