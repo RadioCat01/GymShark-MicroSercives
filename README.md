@@ -157,8 +157,10 @@ No additional classes, main class Annotated tith @EnableConfig server
 ##  
     Dependencies
          Config client
-         GateWay
+         Reactive GateWay
          Eureca discovery client
+         Oauth2 Resource Server
+         Lombok
          Zipkin
 
 ---
