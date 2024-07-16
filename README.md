@@ -407,6 +407,47 @@ Entities, data models, controller, services, repositories, gloable exception han
 
 ---
 
+# Keycloak Integration 
+
+#### BackEnd
+OAuth2 Resource server dependency at Gateway Service 
+
+#### FrontEnd
+Keycloak Service - Setting up necessary services
+Guard            - CanActicate Function for securing routes
+Interceptor      - Inhecting token into all the passing request headers 
+
+Configuration of Intercepter and Keycloak service in app.module.ts
+
+        export function kcFactory(kcService: KeycloakService){
+          return () =>kcService.init();
+        }
+        // This Factory function initializes KeycloakService instance, when called invokes it's 'init' method
+
+        Providers - services and other injectables 
+        
+         providers: [
+                    HttpClient,     // For performing HTTP reuests 
+                    {
+                      provide: HTTP_INTERCEPTORS,    // To intercept and modify HTTP requests and responses
+                      useClass: HttpTokenInterceptor, // specifies the class for interception
+                      multi: true   // tells angular that this is not the only interceptor that will be used in the application
+                   },
+                     {
+                      provide: APP_INITIALIZER,  // To perform some initialization logic before the application is bootstrapped
+                      deps: [KeycloakService],  // This indicates that the kcFactory function depends on the KeycloakService. Angular will inject the KeycloakService as a dependency when calling kcFactory.
+                      useFactory: kcFactory,  // This specifies that the kcFactory function should be used to perform initialization logic
+                      multi: true    //This indicates that multiple APP_INITIALIZER functions can be provided.
+                     },
+                     provideAnimationsAsync()  
+                  ],
+
+                //
+        
+
+        
+
+
 
 
 
