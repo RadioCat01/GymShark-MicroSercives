@@ -9,7 +9,7 @@ public record PaymentRequest(
         PaymentMethod paymentMethod,
         Integer orderId,
         String orderReference,
-        Customer customer
+        CustomerResponse customer
 
 ) {
 }

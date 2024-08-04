@@ -10,7 +10,7 @@ public record OrderConfirmation(
         String orderReference,
         BigDecimal totalAmount,
         PaymentMethod paymentMethod,
-        Customer customer,
+        CustomerResponse customer,
         List<Product> products
 
 ) {

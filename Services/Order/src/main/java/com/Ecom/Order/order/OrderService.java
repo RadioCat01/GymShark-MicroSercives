@@ -39,8 +39,8 @@ public class OrderService {
 
         var CustomerRequest = new CustomerRequest(
                 currentCustomer.id(),
-                currentCustomer.firstname(),
-                currentCustomer.lastname(),
+                currentCustomer.firstName(),
+                currentCustomer.lastName(),
                 currentCustomer.email(),
                 Address
         );
@@ -73,6 +73,7 @@ public class OrderService {
         );
 
         Response response = paymentClient.requestOrderPayment(paymentRequest);
+
         String redirectUrl = response.headers().get("Location").iterator().next();
 
         orderProducer.sendOrderConfirmation(

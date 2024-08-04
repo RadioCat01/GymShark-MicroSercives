@@ -1,5 +1,4 @@
-package com.Ecom.Order.customer;
-
+package com.Ecom.Notification.kafka.order;
 
 public record CustomerResponse(
         String id,

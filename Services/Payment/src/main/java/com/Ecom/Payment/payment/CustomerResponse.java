@@ -1,6 +1,7 @@
-package com.Ecom.Notification.kafka.order;
+package com.Ecom.Payment.payment;
 
-public record Customer(
+
+public record CustomerResponse(
         String id,
         String firstName,
         String lastName,

@@ -2,7 +2,7 @@ package com.Ecom.Notification.kafka;
 
 import com.Ecom.Notification.email.EmailService;
 import com.Ecom.Notification.kafka.order.OrderConfirmation;
-import com.Ecom.Notification.kafka.payment.PaymentConfirmation;
+import com.Ecom.Notification.kafka.payment.PaymentNotificationRequest;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,17 +19,17 @@ public class NotificationConsumer {
     private final EmailService emailService;
 
     @KafkaListener(topics = "payment-topic")
-    public void consumePaymentSuccessNotification(PaymentConfirmation paymentConfirmation) throws MessagingException {
+    public void consumePaymentSuccessNotification(PaymentNotificationRequest pc) throws MessagingException {
 
         log.info(String.format("Consuming the message from payment-topic"));
 
-        var customerName = paymentConfirmation.customerFirstName() + " " + paymentConfirmation.customerLastName();
+        var customerName = pc.customerFirstName() + " " + pc.customerLastName();
 
         emailService.sendPaymentSuccessEmail(
-                paymentConfirmation.customerEmail(),
+                pc.customerEmail(),
                 customerName,
-                paymentConfirmation.amount(),
-                paymentConfirmation.orderReference()
+                pc.amount(),
+                pc.orderReference()
         );
 
     }
@@ -41,6 +41,7 @@ public class NotificationConsumer {
 
         var customerName = orderConfirmation.customer().firstName() + " " + orderConfirmation.customer().lastName();
 
+        System.out.println(customerName);
         emailService.sendOrderConfirmationEmail(
                 orderConfirmation.customer().email(),
                 customerName,

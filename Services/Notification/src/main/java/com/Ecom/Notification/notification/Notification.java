@@ -2,7 +2,7 @@ package com.Ecom.Notification.notification;
 
 
 import com.Ecom.Notification.kafka.order.OrderConfirmation;
-import com.Ecom.Notification.kafka.payment.PaymentConfirmation;
+import com.Ecom.Notification.kafka.payment.PaymentNotificationRequest;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -19,6 +19,6 @@ public class Notification {
     private LocalDateTime notificationDate;
 
     private OrderConfirmation orderConfirmation;
-    private PaymentConfirmation paymentConfirmation;
+    private PaymentNotificationRequest paymentConfirmation;
 
 }
