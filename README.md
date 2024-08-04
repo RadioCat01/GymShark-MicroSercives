@@ -1,4 +1,6 @@
-# Micro service architecture of Computer Hardware E-commerce website
+# Micro service architecture of GymShark E-commerce website
+
+![1](https://github.com/RadioCat01/Ecom-Micro/assets/159749345/6fa7a789-da87-4c9b-a870-377395fee99f)
 
 ## Micro services -
         Configuration-service      - port 8080
@@ -101,6 +103,67 @@ No additional classes, main class Annotated tith @EnableConfig server
          eureka server
 
 ---
+### Gateway-service
+#### Configurations
+#### gateway-service.yml in configuration-service
+
+    spring:
+       cloud:
+         gateway:
+           discovery:
+              locator:
+                 enabled: true  // Enables the discovery locator, which allows the gateway to discover routes from a service registry like Eureka
+          
+           routes:                                //Defines a list of routes for the gateway to forward requests to specific microservices based on the request path.
+               - id: customer-service             // A unique identifier for the route.
+                 uri: lb:http://CUSTOMER-SERVICE  // The URI of the target microservice. The lb: prefix indicates that the URI is a load-balanced address.
+                 predicates:                      // A list of conditions that incoming requests must match to be routed to the specified URI. In this case, it uses the Path predicate to match the request path
+                    - Path=/api/v1/customers/**
+               - id: order-service
+                 uri: lb:http://ORDER-SERVICE
+                 predicates:
+                    - Path=/api/v1/orders/**
+               - id: order-line-service
+                 uri: lb:http://CUSTOMER-SERVICE
+                 predicates:
+                    - Path=/api/v1/order-lines/**
+               - id: product-service
+                 uri: lb:http://PRODUCT-SERVICE
+                 predicates:
+                    - Path=/api/v1/products/**
+               - id: payment-service
+                 uri: lb:http://PAYMENT-SERVICE
+                 predicates:
+                    - Path=/api/v1/payments/**
+    server:
+       port: 8055
+
+#### application.yml in gateway-service
+
+    spring:
+       security:
+           oauth2:
+               resourceserver:
+                 jwt:
+                    issuer-uri: "http://localhost:9098/realms/micro-service"   // keycloak service up by docker
+        config:
+            import: optional:configserver:http://localhost:8080
+        application:
+            name: gateway-service
+
+#### Java code
+- security: contains Security filter chain xxx Integrated Keycloak at gateway
+- Here have implemented a filter to add user id, first name, last name, email in to the passing request header - that laterly persisted on customer database along with other data ( adress, zip code, city )
+##  
+    Dependencies
+         Config client
+         Reactive GateWay
+         Eureca discovery client
+         Oauth2 Resource Server
+         Lombok
+         Zipkin
+
+---
 
 ### Customer-service
 #### Configurations
@@ -194,6 +257,10 @@ Entities, data models, controller, services, repositories, gloable exception han
             value-serializer: org.springframework.kafka.support.serializer.JsonSerializer  //Sets the value serializer for the Kafka producer to JsonSerializer, which allows for serializing Java objects to JSON.
             properties:
                 spring.json.type.mapping: paymentConfirmation:com.Ecom.Payment.notification.PaymentNotificationRequest  // Maps the JSON type orderConfirmation to the Java class com.Ecom.Order.kafka.OrderConfirmation.
+    paypal:
+      client-id: AbjzUpp06dy-_V9FgZnZUqVKQdwqKNkVI6satiVDqMgbiHVVFo0N2gw6NI9xtWNvhwRf0r5QGfJrwO8c
+      client-secret: EAsRr46qOtOy9hgAI8fOJ2kyKhzsgvU3fqXstSHUuorAgkGgCKWouTx4oyE5Czh9hxodzKf4LPma_CfL      // Paypal Integration
+      mode: sandbox  # for testing set 'live' for actual deployment
 
 #### Java code
 - Payment
@@ -339,62 +406,48 @@ Entities, data models, controller, services, repositories, gloable exception han
 
 
 ---
-### Gateway-service
-#### Configurations
-#### gateway-service.yml in configuration-service
 
-    spring:
-       cloud:
-         gateway:
-           discovery:
-              locator:
-                 enabled: true  // Enables the discovery locator, which allows the gateway to discover routes from a service registry like Eureka
-          
-           routes:                                //Defines a list of routes for the gateway to forward requests to specific microservices based on the request path.
-               - id: customer-service             // A unique identifier for the route.
-                 uri: lb:http://CUSTOMER-SERVICE  // The URI of the target microservice. The lb: prefix indicates that the URI is a load-balanced address.
-                 predicates:                      // A list of conditions that incoming requests must match to be routed to the specified URI. In this case, it uses the Path predicate to match the request path
-                    - Path=/api/v1/customers/**
-               - id: order-service
-                 uri: lb:http://ORDER-SERVICE
-                 predicates:
-                    - Path=/api/v1/orders/**
-               - id: order-line-service
-                 uri: lb:http://CUSTOMER-SERVICE
-                 predicates:
-                    - Path=/api/v1/order-lines/**
-               - id: product-service
-                 uri: lb:http://PRODUCT-SERVICE
-                 predicates:
-                    - Path=/api/v1/products/**
-               - id: payment-service
-                 uri: lb:http://PAYMENT-SERVICE
-                 predicates:
-                    - Path=/api/v1/payments/**
-    server:
-       port: 8055
+# Keycloak Integration 
 
-#### application.yml in gateway-service
+#### BackEnd
+OAuth2 Resource server dependency at Gateway Service 
 
-    spring:
-       security:
-           oauth2:
-               resourceserver:
-                 jwt:
-                    issuer-uri: "http://localhost:9098/realms/micro-service"   // keycloak service up by docker
-        config:
-            import: optional:configserver:http://localhost:8080
-        application:
-            name: gateway-service
+#### FrontEnd
+Keycloak Service - Setting up necessary services
+Guard            - CanActicate Function for securing routes
+Interceptor      - Inhecting token into all the passing request headers 
 
-#### Java code
-- security: contains Security filter chain
-##  
-    Dependencies
-         Config client
-         GateWay
-         Eureca discovery client
-         Zipkin
+Configuration of Intercepter and Keycloak service in app.module.ts
+
+        export function kcFactory(kcService: KeycloakService){
+          return () =>kcService.init();
+        }
+        // This Factory function initializes KeycloakService instance, when called invokes it's 'init' method
+
+        Providers - services and other injectables 
+        
+         providers: [
+                    HttpClient,     // For performing HTTP reuests 
+                    {
+                      provide: HTTP_INTERCEPTORS,    // To intercept and modify HTTP requests and responses
+                      useClass: HttpTokenInterceptor, // specifies the class for interception
+                      multi: true   // tells angular that this is not the only interceptor that will be used in the application
+                   },
+                     {
+                      provide: APP_INITIALIZER,  // To perform some initialization logic before the application is bootstrapped
+                      deps: [KeycloakService],  // This indicates that the kcFactory function depends on the KeycloakService. Angular will inject the KeycloakService as a dependency when calling kcFactory.
+                      useFactory: kcFactory,  // This specifies that the kcFactory function should be used to perform initialization logic
+                      multi: true    //This indicates that multiple APP_INITIALIZER functions can be provided.
+                     },
+                     provideAnimationsAsync()  
+                  ],
+
+                //
+        
+
+        
+
+
 
 
 
