@@ -2,4 +2,4 @@ spring:
   config:
     import: optional:configserver:http://localhost:8080
   application:
-    name: product-service
+    name: productService

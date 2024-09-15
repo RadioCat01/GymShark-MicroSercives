@@ -1,7 +1,7 @@
 
 services:
   postgres:
-    container_name: ms_pg_sql
+    container_name: postgres1
     image: postgres
     environment:
       POSTGRES_USER: username
@@ -16,7 +16,7 @@ services:
     restart: unless-stopped
 
   zipkin:
-    container_name: zipkin
+    container_name: zipkin1
     image: openzipkin/zipkin
     ports:
       - "9411:9411"
@@ -24,7 +24,7 @@ services:
       - microservices-net
 
   keycloak:
-    container_name: keycloak-ms
+    container_name: keycloak-ms1
     image: quay.io/keycloak/keycloak:24.0.2
     ports:
       - 9098:8080
@@ -37,7 +37,7 @@ services:
       - "start-dev"
 
   pgadmin:
-    container_name: ms_pgadmin
+    container_name: ms_pgadmin1
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
@@ -53,7 +53,7 @@ services:
 
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
-    container_name: zookeeper
+    container_name: zookeeper1
     environment:
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_CLIENT_PORT: 2181
@@ -65,27 +65,26 @@ services:
 
   kafka:
     image: confluentinc/cp-kafka:latest
-    container_name: ms_kafka
+    container_name: ms_kafka1
     ports:
       - 9092:9092
     depends_on:
       - zookeeper
     environment:
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
-      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper1:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_BROKER_ID: 1
     networks:
       - microservices-net
 
   mail-dev:
-    container_name: ms-mail-dev
+    container_name: ms-mail-dev1
     image: maildev/maildev
     ports:
       - 1080:1080
       - 1025:1025
+    networks:
+      - microservices-net
 
 networks:
   microservices-net:

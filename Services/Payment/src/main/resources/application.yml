@@ -2,6 +2,6 @@ spring:
   config:
     import: optional:configserver:http://localhost:8080
   application:
-    name: payment-service
+    name: paymentService
   thymeleaf:
     enabled: true
