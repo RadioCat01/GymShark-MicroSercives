@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
         url="${application.config.payment-url}"
 )
 public interface PaymentClient {
-
-
     @PostMapping
     Response requestOrderPayment(@RequestBody PaymentRequest request);
-
 }
