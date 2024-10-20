@@ -1,5 +1,7 @@
 # Micro service architecture of GymShark E-commerce website
 
+https://github.com/user-attachments/assets/374f5db8-d6d1-486d-8a47-19c1721e5419
+
 ![1](https://github.com/RadioCat01/Ecom-Micro/assets/159749345/6fa7a789-da87-4c9b-a870-377395fee99f)
 
 ## Micro services -
